@@ -51,8 +51,8 @@ int main() {
     }
 
     qsort(x, nx, sizeof(int),campare);
-    printf("정렬 후 %d번째 인덱스에 존재\n",binary_search(x,nx,ky));
-
+    printf("정렬 후 %d 번 째 인덱스에 존재\n",binary_search(x,nx,ky));
+    free(x);
 
     return 0;
 }
