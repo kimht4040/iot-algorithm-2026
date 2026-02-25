@@ -3,75 +3,44 @@
 #include <stdlib.h>
 
 
-typedef struct IntQueue {
-    int max;
+typedef struct stack {
     int num;
-    int front;
-    int rear;
-    int* que;
+    int* stk;
 
-} IntQueue;
-
-int InitQueue(IntQueue* q, int max) {
-    q->max = max;
-    if ((q->que = calloc(max, sizeof(int))) ==NULL) {
-        q->max = 0;
-        return -1;
-    }
-
-    q->num = q->rear = q->front = 0;
+} stack;
+int gen_stack(stack* st,int n) {
+    st->stk = calloc(1, sizeof(stack));
+    st->num = -1;
     return 0;
 }
-int enqueue(IntQueue* q, int x) {
 
-        q->num++;
-        q->que[q->rear++] = x;
-        if (q->rear == q->max) {
-            q->rear = 0;
-        }
-        return 0;
-
-}
-int dequeue(IntQueue* q, int * x) {
-    q->num--;
-    *x = q->que[q->front];
-    q->front++;
-    if (q->front == q->max) {
-        q->front = 0;
-
-    }
+int Push(stack* st,int n) {
+    st->num++;
+    st->stk[st->num] =n;
     return 0;
 }
+int Pop(stack* st) {
+    int x = st->stk[st->num];
+    st->num--;
+    return x;
+}
+
 
 int main() {
 
-    int x;
-    IntQueue q;
-    int max;
-    scanf("%d", &max);
-    InitQueue(&q, max);
-
-    for (int i = 1; i <=max ; i++) {
-        enqueue(&q, i);
-    }
-
-    while (1) {
-        if (q.num == 1) {
-            printf("%d\n", q.que[(q.front)%q.max]);
-            break;
-        }
-        dequeue(&q, &x);
-        if (q.num == 1) {
-            printf("%d\n", q.que[(q.front)%q.max]);
-            break;
-        }
-        dequeue(&q, &x);
-        enqueue(&q, x);
-    }
 
 
 
-
+    stack st;
+    gen_stack(&st,4);
+    Push(&st,1);
+    Push(&st,2);
+    Push(&st,3);
+    Push(&st,4);
+    printf("%d",Pop(&st));
+    printf("%d",Pop(&st));
+    printf("%d",Pop(&st));
+    printf("%d",Pop(&st));
 
     return 0;
 }
